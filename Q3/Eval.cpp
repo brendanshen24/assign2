@@ -24,6 +24,10 @@ int main () {
 
     t = S.getnext();
     while ((t.tt != eof) || (opstack.isEmpty() == false)) {//while T is not EOF or the operator stack is non empty
+        //cout<<"type: "<<t.tt<<endl;
+        //cout<<"text: "<<t.text<<endl;
+        //cout<<"value: " << t.val<<endl;
+
         if (t.tt == integer) {//if T is a number:
             numstack.push(t);//push T to the number stack; get the next token
         } 
@@ -108,6 +112,12 @@ int main () {
         }
         t = S.getnext();
     }
+
+    int finalVal = 0;
+    while (numstack.isEmpty() == false){
+        finalVal += numstack.pop().val;
+    }
+    cout<<finalVal<<endl;
 
     //cout << endl;
     return 0;
