@@ -75,7 +75,7 @@ int Stack::peek() {
     }
 }  // end peek
 
-// Description: pops the last element 
+// Description: pops the last element and returns true if successful
 bool Stack::pop() {
     if(head == nullptr){
         return false;
@@ -97,7 +97,7 @@ bool Stack::pop() {
     }
 }  // end pop
 
-// Description: peeks the last value in the stack and returns that value.
+// Description: checks if the stack is empty, if it is then it returns true
 bool Stack::isEmpty() {
     if(head == nullptr){
         return true;
@@ -105,6 +105,6 @@ bool Stack::isEmpty() {
     else{
         return false;
     }
-}  // end pop
+}  // end isEmpty
 
 //  End of implementation file
