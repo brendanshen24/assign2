@@ -25,7 +25,16 @@ Stack::Stack() {
 /* // Destructor
 // Description: Destruct this object, releasing heap-allocated memory.
 MyADT::~MyADT() {
+
 } // end destructor */
+
+Stack::~Stack() {
+    bool headNotEmpty = true;
+    while (headNotEmpty == true){
+        headNotEmpty = pop();
+    }
+    delete head;
+}
 
 // Description: pushes num into the stack.
 bool Stack::push(int num) {

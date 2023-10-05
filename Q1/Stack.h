@@ -26,6 +26,7 @@ class Stack {
 
     public:
         Stack();
+        ~Stack();
         bool push(int num);
         int peek();
         bool pop();
