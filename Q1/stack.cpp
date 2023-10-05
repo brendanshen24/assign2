@@ -1,5 +1,5 @@
 /* 
- * Stack.h
+ * Stack.cpp
  *
  * Description: Implementation of a linked list-based Stack ADT class - SHSL list
  * Class Invariant: LIFO order
