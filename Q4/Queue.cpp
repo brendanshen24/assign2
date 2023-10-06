@@ -15,7 +15,15 @@ using std::cout;
 using std::endl;
 
 // Description: Constructor
-Queue::Queue() {}
+Queue::Queue() {
+    int* elementsPointer = new int[INITIAL_CAPACITY];
+    elements = elementsPointer;
+}
+
+Queue::~Queue() {
+    delete[] elements;
+    elements = nullptr;
+}
 
 // Description: Inserts newElement at the back of Queue
 // Time Efficiency: O(1)
