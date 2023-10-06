@@ -13,7 +13,23 @@
 
 using namespace std;
 
-
+void evaluateExpression(int a, int b, Token operation, Stack<Token>& numstack){
+    Token newResult;
+    newResult.tt == integer;
+    if(operation.tt == pltok){
+        newResult.val = a+b;//perform the operation
+    }
+    else if(operation.tt == mitok){
+        newResult.val = a-b;//perform the operation
+    }
+    else if(operation.tt == asttok){
+        newResult.val = a*b;//perform the operation
+    }
+    else if(operation.tt == slashtok){
+        newResult.val = a/b;//perform the operation 
+    }
+    numstack.push(newResult);//push the result to the number stack
+}
 
 int main () {
     Scanner S(cin);
@@ -24,16 +40,6 @@ int main () {
 
     t = S.getnext();
     while ((t.tt != eof) || (opstack.isEmpty() == false)) {//while T is not EOF or the operator stack is non empty
-/*         cout<<"type: "<<t.tt<<endl;
-        cout<<"text: "<<t.text<<endl;
-        cout<<"value: " << t.val<<endl;
-        cout<<"emptystatus: " << opstack.isEmpty()<<endl;
-        cout<<"has elements: " <<((opstack.isEmpty() == false)) << endl;
-        if((opstack.isEmpty() == false)){
-            cout<< "peek: " <<((opstack.peek().tt)) << endl;
-        }
-        cout<<"logic output total: " <<((t.tt != eof) || (opstack.isEmpty() == false)) << endl;  */
-
         if (t.tt == integer) {//if T is a number:
             numstack.push(t);//push T to the number stack;
             t = S.getnext();//get the next token
@@ -48,46 +54,18 @@ int main () {
                 t = S.getnext();//get the next token
             }
             else{//else:
-                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 int b = numstack.pop().val;
+                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 Token operation = opstack.pop();
-                Token newResult;
-                newResult.tt == integer;
-                if(operation.tt == pltok){
-                    newResult.val = a+b;//perform the operation
-                }
-                else if(operation.tt == mitok){
-                    newResult.val = a-b;//perform the operation
-                }
-                else if(operation.tt == asttok){
-                    newResult.val = a*b;//perform the operation
-                }
-                else if(operation.tt == slashtok){
-                    newResult.val = a/b;//perform the operation 
-                }
-                numstack.push(newResult);//push the result to the number stack
+                evaluateExpression(a, b, operation, numstack); //evaluate expression
             }
         } 
         else if (t.tt == pltok || t.tt == mitok || t.tt == eof) {// else if T is +, - or EOF:
             if((!opstack.isEmpty()) && (opstack.peek().tt == pltok || opstack.peek().tt == mitok || opstack.peek().tt == asttok || opstack.peek().tt == slashtok)){//if the operator stack is nonempty and the top is one of +, -, *, /:
-                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 int b = numstack.pop().val;
+                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 Token operation = opstack.pop();
-                Token newResult;
-                newResult.tt == integer;
-                if(operation.tt == pltok){
-                    newResult.val = a+b;//perform the operation
-                }
-                else if(operation.tt == mitok){
-                    newResult.val = a-b;//perform the operation
-                }
-                else if(operation.tt == asttok){
-                    newResult.val = a*b;//perform the operation
-                }
-                else if(operation.tt == slashtok){
-                    newResult.val = a/b;//perform the operation
-                }
-                numstack.push(newResult);//push the result to the number stack
+                evaluateExpression(a, b, operation, numstack); //evaluate expression
             }
             else{//else:
                 opstack.push(t);//push T to the operator stack;
@@ -96,24 +74,10 @@ int main () {
         }
         else if (t.tt == asttok || t.tt == slashtok) {//else if T is * or /:
             if((opstack.isEmpty() == false) && (opstack.peek().tt == asttok || opstack.peek().tt == slashtok)){//if the operator stack is nonempty and the top is one of *, /:
-                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 int b = numstack.pop().val;
+                int a = numstack.pop().val;//pop the top two numbers and the top operator
                 Token operation = opstack.pop();
-                Token newResult;
-                newResult.tt == integer;
-                if(operation.tt == pltok){
-                    newResult.val = a+b;//perform the operation
-                }
-                else if(operation.tt == mitok){
-                    newResult.val = a-b;//perform the operation
-                }
-                else if(operation.tt == asttok){
-                    newResult.val = a*b;//perform the operation
-                }
-                else if(operation.tt == slashtok){
-                    newResult.val = a/b;//perform the operation
-                }
-                numstack.push(newResult);//push the result to the number stack
+                evaluateExpression(a, b, operation, numstack); //evaluate expression
             }
             else{
                 opstack.push(t);//push T to the operator stack;
