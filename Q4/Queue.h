@@ -4,8 +4,8 @@
  * Description: Array-based implementation of Queue as an ADT class
  * Class Invariant: Queue maintained in FIFO order
  *
- * Author:
- * Date:
+ * Author: Brendan Shen & Erin DeMarco
+ * Date: October 8th 2023
  */
  
 #ifndef QUEUE_H
@@ -38,6 +38,9 @@ class Queue {
 
         // Description: Constructor
         Queue();
+
+        // Description: Destructor
+        ~Queue();//needed to add a destructor for some reason it wasnt there before
 
         // Description: Inserts newElement at the back of Queue
         // Time Efficiency: O(1)

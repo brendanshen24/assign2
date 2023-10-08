@@ -5,8 +5,8 @@
  * Class Invariant: LIFO order
  *                  Top of Stack located at the back of SHSL list.
  *
- * Author:
- * Date:
+ * Author: Brendan Shen & Erin DeMarco
+ * Date: October 8th 2023
  */
 
 
@@ -22,23 +22,18 @@ Stack::Stack() {
     head = nullptr;
 }  // end default constructor
 
-/* // Destructor
+// Destructor
 // Description: Destruct this object, releasing heap-allocated memory.
-MyADT::~MyADT() {
-
-} // end destructor */
-
 Stack::~Stack() {
-    bool headNotEmpty = true;
-    while (headNotEmpty == true){
-        headNotEmpty = pop();
+    while (isEmpty() == false){
+        pop();
     }
     delete head;
-}
+}// end destructor
 
 // Description: pushes num into the stack.
 bool Stack::push(int num) {
-    if(head == nullptr){
+    if(head == nullptr){//this is the case where there are no elements in the stack yet, so we need to initialize some things
         StackNode* newHead = new StackNode();
         newHead->data = num;
         newHead->next = nullptr;
@@ -51,7 +46,7 @@ bool Stack::push(int num) {
         }
     }
 
-    else{
+    else{//this is the case where there is at least one element in the stack.
         StackNode* current = head;
         while (current->next != nullptr){
             current = current->next;
@@ -87,7 +82,7 @@ int Stack::peek() {
 // Description: pops the last element and returns true if successful
 bool Stack::pop() {
     if(head == nullptr){
-        return false;
+        return false;//return false, there are no elements in the stack
     }
     else if(head->next == nullptr){
         delete head;

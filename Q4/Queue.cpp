@@ -4,29 +4,11 @@
  * Description: Array-based implementation of Queue as an ADT class
  * Class Invariant: Queue maintained in FIFO order
  *
- * Author: Brendan Shen
- * Date:
- * 
- * Resizing the array is a relatively expensive operation. You need to find a larger space, 
- * copy the elements from the old array into the new array, and recycle the old array. 
- * Overall, this is an O(n) operation, and should occur sparingly.
- *  
- * One effective strategy is to double the capacity of the Queue whenever you enqueue into a full array. 
- * The expensive resizing operations are amortized across enough operations that they don’t become an issue. 
- * Implement this strategy by re-writing enqueue(newElement). Feel free to add a private helper method to the Queue class, if you need one.
- * 
- * To have an array that has too large a capacity compared to the number of elements is also bad. 
- * It is a waste of space. One good strategy is to halve the capacity of the Queue whenever the array is less than 1/4 full. 
- * However, the minimum capacity cannot drop below the value of INITIAL_CAPACITY. Implement this strategy by re-writing dequeue().
- * 
- * You may also notice that there are a few other problems with the provided implementation of the methods of this Queue. 
- * For example, elementCount may be incorrectly set. As you are making the above changes, ensure that you fix this problem. 
- * There are other problems that we shall not yet be able to fix as they will require the use of exception handling. 
- * For example, we will not be able to notify the client code when the preconditions of dequeue() and of peek() have not been satisfied. 
- * To do so, we will need to make use of exception handling which we will cover soon in one of our labs. 
- * Therefore, we shall have to wait for our next assignments in order to fix such problems.
+ * Author: Brendan Shen & Erin DeMarco
+ * Date: October 8th 2023
  */
  
+
 #include <iostream>
 #include "Queue.h"
 
@@ -47,6 +29,24 @@ Queue::~Queue() {
 // Description: Inserts newElement at the back of Queue
 // Time Efficiency: O(1)
 void Queue::enqueue(int newElement) {
+    //check if the queue is full
+    if(elementCount == capacity){
+        //double the capacity
+        int newCapacity = capacity*2;
+        int* newElements = new int[newCapacity];
+        //copy the elements to the new array
+        for(int i = 0; i<elementCount; ++i){
+            newElements[i] = elements[(frontindex + i) % capacity];//most important
+        }
+        frontindex = 0;
+        backindex = elementCount;
+        capacity = newCapacity;
+
+        //delete heap memory where the old elements array is
+        delete[] elements;
+        elements = newElements;
+    }
+    //the existing code
     elements[backindex] = newElement;
     backindex = (backindex + 1) % capacity;    
     elementCount++;
@@ -57,8 +57,27 @@ void Queue::enqueue(int newElement) {
 // Precondition: Queue not empty
 // Time Efficiency: O(1)
 void Queue::dequeue() {
-    elementCount--;
-    frontindex = (frontindex + 1) % capacity;
+    if(isEmpty() == false){
+        elementCount--;
+        frontindex = (frontindex + 1) % capacity;
+
+        //check if the capacity should be halved
+        if((elementCount < (capacity/4))  && (capacity > INITIAL_CAPACITY)){
+            int newCapacity = capacity/2;
+            //take this next bit from enqueue
+            int* newElements = new int[newCapacity];
+            for(int i = 0; i<elementCount; ++i){
+                newElements[i] = elements[(frontindex + i) % capacity];//most important
+            }
+            frontindex = 0;
+            backindex = elementCount;
+            capacity = newCapacity;
+
+            //delete heap memory where the old elements array is
+            delete[] elements;
+            elements = newElements;
+        }
+    }
     return;
 } 
 

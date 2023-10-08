@@ -3,8 +3,8 @@
  *
  * Description: Evaluation of infix expressions using two Stacks.
  *
- * Author:
- * Date:
+ * Author: Brendan Shen & Erin DeMarco
+ * Date: October 8th 2023
  */
 
 #include <iostream>
@@ -91,7 +91,7 @@ int main () {
         finalVal += numstack.pop().val;
     }
     
-    cout<<finalVal<<endl;
+    cout<<finalVal<<endl; //output the answer to the console
 
     return 0;
 }
